@@ -1,0 +1,12 @@
+version: "3.3"
+services:
+  protoc-all:
+    image: namely/protoc-all:latest
+    command: 
+      -d proto
+      -o gen/pb-go
+      -i third_party/googleapis
+      -l go
+      --with-gateway
+    volumes:
+      - ./:/defs
