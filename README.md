@@ -49,5 +49,17 @@ Start the application:
 
 ```sh
 $ eval $(minikube docker-env)
-$ skaffold dev -p mysql --port-forward=user --no-prune=false --cache-artifacts=false
+$ skaffold run -p mysql --port-forward=user --no-prune=false --cache-artifacts=false
+```
+
+Create user via grpc-gateway:
+
+```sh
+$ curl -d '{"name":"John", "type":1}' -H "Content-Type: application/json" -X POST http://localhost:8080/v1/users
+```
+
+Get created users via grpc-gateway:
+
+```sh
+$ curl -H "Content-Type: application/json" -X GET http://localhost:8080/v1/users
 ```
