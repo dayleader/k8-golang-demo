@@ -14,7 +14,7 @@ service UserService {
         };
     }
 
-    rpc GetUser(GetUserRequest) returns (GetUserResponse) {
+    rpc GetUsers(GetUsersRequest) returns (GetUsersResponse) {
         option (google.api.http) = {
             get: "/v1/users"
         };
@@ -29,10 +29,9 @@ message CreateUserResponse {
     string id = 1;    
 }
 
-message GetUserRequest {
-    string id = 1;
+message GetUsersRequest {
 }
 
-message GetUserResponse {
-    com.example.user.model.v1.UserRead user = 1;
+message GetUsersResponse {
+    repeated com.example.user.model.v1.UserRead users = 1;
 }

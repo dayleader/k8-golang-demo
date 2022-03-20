@@ -3,6 +3,9 @@ module k8-golang-demo
 go 1.16
 
 require (
+	github.com/cenk/backoff v2.2.1+incompatible
+	github.com/go-sql-driver/mysql v1.6.0
+	github.com/golang-migrate/migrate/v4 v4.15.1
 	github.com/google/uuid v1.3.0
 	github.com/grpc-ecosystem/grpc-gateway/v2 v2.9.0
 	github.com/oklog/oklog v0.3.2

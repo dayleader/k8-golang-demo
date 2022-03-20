@@ -1,0 +1,6 @@
+CREATE TABLE IF NOT EXISTS users (
+    id VARCHAR(40),
+    name VARCHAR(255), 
+    type SMALLINT UNSIGNED,
+    PRIMARY KEY(id)
+);

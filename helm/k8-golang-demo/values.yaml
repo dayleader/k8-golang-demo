@@ -1,0 +1,63 @@
+# Default values for k8-golang-demo.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+replicaCount: 1
+
+image:
+  hostname: docker.io
+  repository: /golang-enthusiast/k8-golang-demo
+  tag: 0.1.0
+  pullPolicy: IfNotPresent  
+
+migration:
+  image:
+    hostname: docker.io
+    repository: /golang-enthusiast/k8-golang-demo-data-migration
+    tag: 0.3.0
+    pullPolicy: IfNotPresent 
+
+service:
+  type: ClusterIP
+  protocol: TCP
+  port: 6565
+  httpPort: 8080
+  name: grpc
+
+ingress:
+  name: http
+  protocol: HTTP
+  port: 80
+  extension: svc.cluster.local
+
+serviceAccount:
+  create: true  
+
+mysql:
+  enabled: false
+  host: mysql  
+  mysqlDriver: mysql
+  mysqlRootPassword: test
+  mysqlDatabase: test
+  mysqlUser: admin
+  mysqlPassword: test
+  service:
+    port: 3306    
+  initdbScripts:
+    initdb.sql: |-
+      CREATE DATABASE IF NOT EXISTS test DEFAULT CHARACTER SET utf8 DEFAULT COLLATE utf8_general_ci;
+      CREATE USER 'admin'@'%' IDENTIFIED BY 'test';
+      GRANT ALL PRIVILEGES ON *.* TO 'admin'@'%' WITH GRANT OPTION;
+      FLUSH PRIVILEGES;
+  primary:    
+    persistence:
+      enabled: false
+      storageClass: standard
+
+grpcGateway:
+  service:
+    protocol: TCP
+    port: 8080
+    name: http
+
+skaffold: false

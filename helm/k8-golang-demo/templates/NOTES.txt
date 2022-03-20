@@ -1,0 +1,13 @@
+Deployed: {{ .Chart.Name }} version: {{ .Chart.AppVersion }}
+
+Release is named {{ .Release.Name }}
+Release's namespace is {{ .Release.Namespace }}
+
+To learn more about the release, try:
+
+  $ helm status {{ .Release.Name }}
+  $ helm get {{ .Release.Name }}
+
+To delete the release, try:
+
+  $ helm delete {{ .Release.Name }}

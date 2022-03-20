@@ -1,0 +1,20 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ include "k8-golang-demo.fullname" . }}
+  labels:
+    {{- include "k8-golang-demo.labels" . | nindent 4 }}
+spec:
+  type: {{ .Values.service.type }}
+  ports:
+    - port: {{ .Values.service.port }}
+      targetPort: {{ .Values.service.port }}
+      protocol: {{ .Values.service.protocol }}
+      name:  {{ .Values.service.name }}
+    - port: {{ .Values.grpcGateway.service.port }}
+      targetPort: {{ .Values.grpcGateway.service.port }}
+      protocol: {{ .Values.grpcGateway.service.protocol }}
+      name: {{ .Values.grpcGateway.service.name }}
+  selector:
+    app.kubernetes.io/name: {{ include "k8-golang-demo.name" . }}
+    app.kubernetes.io/instance: {{ .Release.Name }}

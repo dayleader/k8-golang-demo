@@ -13,12 +13,12 @@
   "paths": {
     "/v1/users": {
       "get": {
-        "operationId": "UserService_GetUser",
+        "operationId": "UserService_GetUsers",
         "responses": {
           "200": {
             "description": "A successful response.",
             "schema": {
-              "$ref": "#/definitions/v1GetUserResponse"
+              "$ref": "#/definitions/v1GetUsersResponse"
             }
           },
           "default": {
@@ -28,14 +28,6 @@
             }
           }
         },
-        "parameters": [
-          {
-            "name": "id",
-            "in": "query",
-            "required": false,
-            "type": "string"
-          }
-        ],
         "tags": [
           "UserService"
         ]
@@ -111,11 +103,14 @@
         }
       }
     },
-    "v1GetUserResponse": {
+    "v1GetUsersResponse": {
       "type": "object",
       "properties": {
-        "user": {
-          "$ref": "#/definitions/v1UserRead"
+        "users": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/v1UserRead"
+          }
         }
       }
     },

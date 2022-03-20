@@ -1,0 +1,43 @@
+apiVersion: skaffold/v2beta26
+kind: Config
+
+build:
+  artifacts:
+    - image: docker.io/golang-enthusiast/k8-golang-demo
+    - image: docker.io/golang-enthusiast/k8-golang-demo-data-migration
+      docker:
+        dockerfile: ./migrations/Dockerfile 
+  local:
+    push: false
+    concurrency: 1
+
+deploy:
+  helm:
+    flags:
+      upgrade: ["--timeout", "15m"]
+      install: ["--timeout", "15m"]
+    releases:
+    - name: test
+      chartPath: helm/k8-golang-demo
+      wait: true
+      artifactOverrides:
+        skaffoldImage: docker.io/golang-enthusiast/k8-golang-demo
+        migration.skaffoldImage: docker.io/golang-enthusiast/k8-golang-demo-data-migration
+      setValueTemplates:
+        skaffold: true 
+        image.pullPolicy: Never
+        migration.image.pullPolicy: Never
+
+profiles:
+  - name: mysql 
+    patches:
+      - op: add
+        path: /deploy/helm/releases/0/setValueTemplates/mysql.enabled
+        value: true
+
+portForward:
+- resourceType: deployment
+  resourceName: test-k8-golang-demo
+  namespace: default 
+  port: 8080
+  localPort: 8080
