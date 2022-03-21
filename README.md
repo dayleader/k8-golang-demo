@@ -12,7 +12,8 @@ This repository contains a simple golang application that demonstrates how to de
 
 ## Project structure
 
-  * cmd/main.go - main application
+  * cmd/app/main.go - main application
+  * cmd/migrations/main.go - data migrations job
   * proto/* - contains a description of application proto files
   * gen/* - contains generated proto files
   * third_party/* - contains third party api's
